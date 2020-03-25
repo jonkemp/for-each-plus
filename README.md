@@ -18,7 +18,7 @@ $ npm install for-each-plus
 Or [unpkg](https://unpkg.com/for-each-plus/)
 
 ```
-<script src="https://unpkg.com/for-each-plus@1.0.0/umd/index.js" />
+<script src="https://unpkg.com/for-each-plus@1.0.1/umd/index.js" />
 ```
 
 Check out the unit tests on [CodePen](https://codepen.io/jonkemp/full/jOPebYO).
