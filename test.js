@@ -1,5 +1,8 @@
-const assert = require('assert');
-const forEach = require('./');
+/* global forEach */
+const { assert } = chai;
+
+mocha.setup('bdd');
+mocha.checkLeaks();
 
 describe('forEach', () => {
 	it('each iterators provide value and iteration count', () => {
@@ -54,3 +57,5 @@ describe('forEach', () => {
 		assert.strictEqual(forEach(null, () => {}), null);
 	});
 });
+
+mocha.run();
