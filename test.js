@@ -57,5 +57,3 @@ describe('forEach', () => {
 		assert.strictEqual(forEach(null, () => {}), null);
 	});
 });
-
-mocha.run();
