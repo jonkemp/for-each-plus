@@ -1,4 +1,4 @@
-# for-each-plus [![Build Status](https://travis-ci.com/jonkemp/for-each-plus.svg?branch=master)](https://travis-ci.com/jonkemp/for-each-plus)
+# for-each-plus ![Build Status](https://github.com/jonkemp/for-each-plus/actions/workflows/main.yml/badge.svg?branch=master)
 
 > A better forEach.
 
