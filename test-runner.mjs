@@ -45,19 +45,20 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
   try {
     await page.goto('http://localhost:8080/test.html');
 
-    // Wait for Mocha to finish running tests
-    const failures = await page.evaluate(() => {
-      return new Promise(resolve => {
-        mocha.run(function(failures) {
-          resolve(failures);
-        });
-      });
+    const failures = await page.evaluate(async () => {
+      const deadline = Date.now() + 30_000;
+      while (window.testResults === undefined) {
+        if (Date.now() >= deadline) {
+          throw new Error('Mocha did not start');
+        }
+        await new Promise(resolve => setTimeout(resolve, 50));
+      }
+      return window.testResults;
     });
-
-    process.exit(failures ? 1 : 0);
+    process.exitCode = failures ? 1 : 0;
   } catch (error) {
     console.error(chalk.red('Test runner error:', error));
-    process.exit(1);
+    process.exitCode = 1;
   } finally {
     await browser.close();
     server.close();
