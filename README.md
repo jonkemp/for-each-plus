@@ -59,6 +59,11 @@ Default: `none`
 
 Function to apply.
 
+## Development
+
+Use Node.js 22.12 or newer for local development. Run `npm ci`, then
+`npm run lint` and `npm test`. The test suite runs the UMD build in Chrome.
+
 ## License
 
 MIT

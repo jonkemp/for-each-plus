@@ -8,43 +8,36 @@
 <body>
     <div id="mocha"></div>
 
-    <!-- Testing libraries -->
     <script src="node_modules/mocha/mocha.js"></script>
-    <script src="http://chaijs.com/chai.js"></script>
-
-    <!-- Initialize Mocha -->
-    <script>
-        mocha.setup({
-            ui: 'bdd',
-            reporter: 'spec'
-        });
-        window.expect = chai.expect;
-    </script>
-
-    <!-- Load your tests -->
     <script src="umd/index.js"></script>
-    <script src="test.js"></script>
+    <script type="module">
+        import * as chai from './node_modules/chai/chai.js';
 
-    <!-- Run tests -->
-    <script>
+        window.chai = chai;
+        mocha.setup({ ui: 'bdd', reporter: 'spec' });
+        await import('./test.js');
+
         // Custom reporter to show test progress
         function log(type, msg) {
             console.log(JSON.stringify({ type, msg }));
         }
 
-        mocha.run()
-            .on('test', function(test) {
-                log('test', `Running: ${test.title}`);
-            })
-            .on('pass', function(test) {
-                log('pass', `✓ ${test.title}`);
-            })
-            .on('fail', function(test, err) {
-                log('fail', `✗ ${test.title}\n   ${err.message}`);
-            })
-            .on('end', function() {
-                log('end', JSON.stringify(this.stats));
-            });
+        mocha.globals(['testResults']);
+        window.testResults = new Promise(resolve => {
+            mocha.run(resolve)
+                .on('test', function(test) {
+                    log('test', `Running: ${test.title}`);
+                })
+                .on('pass', function(test) {
+                    log('pass', `✓ ${test.title}`);
+                })
+                .on('fail', function(test, err) {
+                    log('fail', `✗ ${test.title}\n   ${err.message}`);
+                })
+                .on('end', function() {
+                    log('end', JSON.stringify(this.stats));
+                });
+        });
     </script>
 </body>
 </html>
